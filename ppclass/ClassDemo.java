@@ -1,5 +1,8 @@
 package ppclass;
 
+/**
+ * 类类型的相关说明
+ */
 public class ClassDemo {
     public static void main(String[] args) {
         Foo foo = new Foo();
