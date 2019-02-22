@@ -10,14 +10,15 @@ public class JdbcDemo {
         insert();
     }
 
-    /*
+    /**
      * 创建连接
-     * */
+     * @return Connection
+     */
     static Connection getCon(){
         Connection con = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");                                                  //注册一个驱动，使用该驱动连接数据库
-            String url = "jdbc:mysql://localhost:3306/pptry?serverTimezone=GMT%2B8&&useSSL=false";      //格式：“jdbc:mysql://IP地址:端口号/"数据库.name?serverTimezone=GMT%2B8”
+            String url = "jdbc:mysql://localhost:3306/pptry?serverTimezone=GMT%2B8&&useSSL=FALSE&&allowPublicKeyRetrieval=true";
             String user = "root";                                                       //用户名
             String password = "localhost";                                              //密码
             con = DriverManager.getConnection(url,user,password);                       //建立连接
@@ -29,9 +30,9 @@ public class JdbcDemo {
         return con;
     }
 
-    /*
+    /**
      * select
-     * */
+     */
     static void select(){
         String sql = "select * from user";                  //待执行sql语句
         PreparedStatement state = null;
@@ -69,9 +70,9 @@ public class JdbcDemo {
         }
     }
 
-    /*
+    /**
      * delect
-     * */
+     */
     static void delect(){
         String sql = "delete from user where id='" + 1 + "'";
         PreparedStatement state = null;
@@ -98,9 +99,9 @@ public class JdbcDemo {
         }
     }
 
-    /*
+    /**
      * update
-     * */
+     */
     static void update(){
         PreparedStatement state = null;
         String sql = "update user set username='" + "pengpeng" + "' where username='" + "pp" + "'";
@@ -127,9 +128,9 @@ public class JdbcDemo {
         }
     }
 
-    /*
+    /**
      * insert
-     * */
+     */
     static void insert(){
         String sql = "insert into user values(null,'pp',123);";
         PreparedStatement state = null;

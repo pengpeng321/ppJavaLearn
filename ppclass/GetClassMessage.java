@@ -20,18 +20,21 @@ public class GetClassMessage {
 }
 class ClassUtil{
 
-    /* Method类
+    /**
+     * 使用Method类
      * 万事万物都是对象,方法也是对象，是Method的对象
-     * */
+     * @param obj
+     */
     public static void printClassMethods(Object obj){
         //传递的是哪个子类的对象，c就是该子类的类类型（getClass采用native方法）
         Class c = obj.getClass();
         System.out.println("类的名称 : " + c.getName());
 
-        /*
+
+        /**
          * c.getMethods()            获取所有public的方法，包括父类的
          * c.getDeclaredMethods()    获取自己声明的方法，不问访问权限
-         * */
+         */
         Method[] ms = c.getDeclaredMethods();
         for(Method temp : ms){
             Class returnType = temp.getReturnType();        //获取类的返回类型
@@ -53,18 +56,19 @@ class ClassUtil{
         }
     }
 
-    /*
-    * Field类
-    * 万事万物都是对象,成员变量也是对象，是Field的对象
-    * */
+    /**
+     * 使用Field类
+     * 万事万物都是对象,成员变量也是对象，是Field的对象
+     * @param obj
+     */
     public static void printClassField(Object obj){
         Class c = obj.getClass();
         System.out.println("类的名称 : " + c.getSimpleName());
 
-        /*
-        * c.getFields()            获取所有public的成员变量，包括父类
-        * c.getDeclaredFields()    获取所有自己声明的成员变量，不问访问权限
-        * */
+        /**
+         * c.getFields()            获取所有public的成员变量，包括父类
+         * c.getDeclaredFields()    获取所有自己声明的成员变量，不问访问权限
+         */
         Field[] field = c.getDeclaredFields();
         for(Field temp : field){
             Class fieldType = temp.getType();                           //获取参数类型
@@ -76,9 +80,9 @@ class ClassUtil{
         }
     }
 
-    /*
-    * Constructor类
-    * 万事万物都是对象,构造方法也是对象，是Constructor的对象
-    * */
+    /**
+     * 使用Constructor类
+     * 万事万物都是对象,构造方法也是对象，是Constructor的对象
+     */
     //...https://www.imooc.com/video/3735
 }
