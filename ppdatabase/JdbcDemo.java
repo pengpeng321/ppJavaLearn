@@ -3,6 +3,20 @@ package ppdatabase;
 import java.sql.*;
 
 /**
+ * 环境配置说明：需要安装mysql、下载 Connector/J、idea配置加载依赖包
+ * mysql下载安装版本的会自动下载 Connector/J ，在目录C:\Program Files (x86)\MySQL 下
+ * mysql下载解压版本的需要自己手动下载 Connector/J ，将里面的 jar 拷贝出来 即可
+ *
+ * 步骤：
+ * // 连接对象            Connection con = null;
+ * // 查询对象            PreparedStatement ps = null;
+ * // 结果集对象          ResultSet rs = null;（仅仅在查询语句时需要）
+ *
+ * // 加载数据库驱动      Class.forName("com.mysql.cj.jdbc.Driver");
+ * // 获取连接            con = DriverManager.getConnection(url,user,password);
+ * // 获取statement       state = con.prepareStatement(sql);
+ * // 查询 输出结果       rs = state.executeQuery();
+ *
  * 测试JDBC操作
  */
 public class JdbcDemo {
@@ -25,15 +39,13 @@ public class JdbcDemo {
 
             // 初始化，与数据库连接所需要的参数
             String url = "jdbc:mysql://localhost:3306/pptry?serverTimezone=GMT%2B8" +
-                    "&&useSSL=FALSE&&allowPublicKeyRetrieval=true";
+                    "&useSSL=FALSE&allowPublicKeyRetrieval=true";
             String user = "root";
-            String password = "localhost";
+            String password = "root";
 
             // 建立连接
             con = DriverManager.getConnection(url,user,password);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return con;
@@ -49,16 +61,17 @@ public class JdbcDemo {
 
         // 建立连接
         Connection con = getCon();
-
         try {
-            // 预编译
+            // 获取查询对象
             state = con.prepareStatement(sql);
-            // 发起请求，结果存放在rs内
+            // 获取结果存放在rs内
             rs = state.executeQuery();
+
             // 获取列数
             int col = rs.getMetaData().getColumnCount();
             while (rs.next()) {
                 for (int i = 1; i <= col; i++) {
+                    // getString("username")也可以使用表头名;
                     System.out.print(rs.getString(i) + " ");
                 }
                 System.out.println();
@@ -67,20 +80,26 @@ public class JdbcDemo {
             e.printStackTrace();
         }finally {
             // 释放资源，分3个try catch防止第一个close失败后影响到后面资源的释放
-            try {
-                if(rs != null) rs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                if(state != null) state.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (state != null) {
+                try {
+                    state.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                if(con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -105,15 +124,19 @@ public class JdbcDemo {
             e.printStackTrace();
         }finally {
             // 释放资源，分2个try catch防止第一个close失败后影响到后面资源的释放
-            try {
-                if(state != null) state.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (state != null) {
+                try {
+                    state.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                if(con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -138,15 +161,19 @@ public class JdbcDemo {
             e.printStackTrace();
         }finally {
             // 释放资源，分2个try catch防止第一个close失败后影响到后面资源的释放
-            try {
-                if(state != null) state.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (state != null) {
+                try {
+                    state.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                if(con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -170,16 +197,20 @@ public class JdbcDemo {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            // 释放资源，分3个try catch防止第一个close失败后影响到后面资源的释放
-            try {
-                if(state != null) state.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            // 释放资源，分2个try catch防止第一个close失败后影响到后面资源的释放
+            if (state != null) {
+                try {
+                    state.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                if(con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
